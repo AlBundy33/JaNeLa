@@ -1,0 +1,695 @@
+<html>
+<head>
+<title>JaNeLA Checks Table</title>
+
+<style type='text/css'>
+.error {
+	background-color: #ffaaaa;
+}
+.warning {
+	background-color: #ffffbb;
+}
+.optimize {
+	background-color: #bbffbb;
+}
+</style>
+<script type='text/javascript'>
+var counter=0;
+function writeNumber() {
+document.write("<td>" + ++counter + "</td>");
+}
+</script>
+<!-- header -->
+</head>
+<body>
+<!-- pagetop -->
+<h1>JaNeLA</h1>
+
+<p>Checks performed - post validation/well-formedness.
+</p>
+
+
+<table border=1 cellspacing=0 cellpadding=2>
+<tr>
+<th>
+#
+</th>
+<th>
+Dn
+</th>
+<th>
+Type
+</th>
+<th>
+Check
+</th>
+<th>
+Example
+</th>
+<th>
+Level
+</th>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+<code>xml</code>
+</td>
+
+<td>
+<code>encoding</code> != actual encoding
+</td>
+<td>
+-
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+<code>jnlp</code>
+</td>
+<td>
+<code>codebase</code> missing (ex 1.6.0_10+ draggable applet)
+</td>
+<td>
+-
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+<code>jnlp</code>
+</td>
+<td>
+<code>codebase</code> malformed
+</td>
+<td>
+-
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+<code>jnlp</code>
+</td>
+<td>
+<code>codebase</code> + <code>href</code> != actual location
+</td>
+<td>
+-
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+<code>jnlp</code>
+</td>
+<td>
+<code>codebase</code> + <code>href</code> malformed
+</td>
+<td>
+-
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+Availability
+</td>
+<td>
+.jar, .zip, extensions, icons, homepage, help
+</td>
+<td class='error'>
+Error
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+ex-jar
+</td>
+<td>
+.exe
+</td>
+<td class='error'>
+Error
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox'>
+</td>
+
+
+<td>
+Resource
+</td>
+
+<td>
+Class in same package but separate Jar
+</td>
+
+<td>
+-
+</td>
+
+<td class='error'>
+Error
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox'>
+</td>
+
+
+<td>
+Resource
+</td>
+
+<td>
+Classes in .zip, for trusted JNLP
+</td>
+
+<td>
+.zip/
+<code>all-permissions</code>,
+<code>j2ee-application-client-permissions</code>
+</td>
+
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+Specified with wrong <code>size</code>
+</td>
+<td>
+<code>icon</code>, <code>jar</code>, <code>nativelib</code>
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+Specify <code>size</code>
+</td>
+<td>
+<code>icon</code>, <code>jar</code>, <code>nativelib</code>
+</td>
+<td class='optimize'>
+Optimize
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+<code>nativelib</code> not in <code>all-permissions</code> JNLP.
+</td>
+<td>
+-
+</td>
+<td class='error'>
+Error
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+<code>nativelib</code> not in root of jar file
+</td>
+<td>
+-
+</td>
+<td class='error'>
+Error
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+<code>nativelib</code> in os specific resources element
+</td>
+<td>
+-
+</td>
+<td class='optimize'>
+Optimize
+</td>
+</tr>
+
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+<code>icon</code> with no <code>&lt;jnlp href</code>
+</td>
+<td>
+-
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+<code>icon</code> of wrong type
+</td>
+<td>
+.bmp, .ico, .tiff, <b>.png</b> (!.gif or .jpg/.jpeg)
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+<code>icon</code> wrong width/height
+</td>
+<td>
+-
+</td>
+<td class='optimize'>
+Optimize
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+Relative <code>href</code> attributes (when <code>codebase</code> set)
+</td>
+<td>
+-
+</td>
+<td class='optimize'>
+Optimize
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox'>
+</td>
+<td>
+Resource
+</td>
+<td>
+Split packages amongst jars(? if &gt; 1 package)
+</td>
+<td>
+.jar, .zip(?)
+</td>
+<td class='optimize'>
+Optimize
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Resource
+</td>
+<td>
+Default value specified
+</td>
+<td>
+<code>main='false'</code>, <code>download='eager'</code>
+</td>
+<td class='optimize'>
+Optimize
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Downloads
+</td>
+<td>
+<code>lazy</code> downloads without <code>part</code>s
+</td>
+<td>
+-
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+Downloads
+</td>
+<td>
+<code>lazy</code> downloads for 2nd and subsequent (non-main)
+<code>jar</code> elements
+</td>
+<td>
+-
+</td>
+<td class='optimize'>
+Optimize
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' CHECKED>
+</td>
+
+
+<td>
+Downloads
+</td>
+
+<td>
+<code>&lt;offline-allowed /&gt;<code>
+</td>
+
+<td>
+-
+</td>
+
+<td class='optimize'>
+Optimize
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+<code>description</code>
+</td>
+<td>
+<code>kind=</code><code>tooltip</code> &lt;= <code>short</code> &lt;= <code>one-line</code>
+</td>
+<td>
+-
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' CHECKED>
+</td>
+
+
+<td>
+Desktop integration
+</td>
+
+<td>
+Desktop icons (esp. w/ file associations)
+</td>
+
+<td>
+-
+</td>
+
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<!--
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox'>
+</td>
+<td>
+<code>j2se</code>
+</td>
+<td>
+<code>version</code> &lt; <code>jnlp</code> <code>spec</code>
+</td>
+<td>
+<code>&lt;j2se version='1.4+'</code> / <code>&lt;jnlp spec='1.5'</code>
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+-->
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox'>
+</td>
+<td>
+<code>j2se</code>
+</td>
+<td>
+<code>version</code> &lt; class format
+</td>
+<td>
+<code>&lt;j2se version='1.4+'</code> / class format 1.6
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+<code>j2se</code>
+</td>
+<td>
+<code>max-heap-size</code> &gt; 1000 Meg
+</td>
+<td>
+<code>&lt;j2se max-heap-size='2048M'</code>
+</td>
+<td class='warning'>
+Warning
+</td>
+</tr>
+
+<tr>
+<script type='text/javascript'>
+writeNumber()
+</script>
+<td>
+<input type='checkbox' checked>
+</td>
+<td>
+<code>j2se</code>
+</td>
+<td>
+<code>version</code> N.n* as opposed to N.n+.
+</td>
+<td>
+<code>&lt;j2se version='1.6*'</code>
+</td>
+<td class='optimize'>
+Optimize
+</td>
+</tr>
+
+</table>
+
+<!-- pagebottom -->
+</body>
+</html>
+

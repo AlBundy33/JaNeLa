@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>JaNeLA - The Java Network Launch Anaylzer</title>
+
+<style type='text/css'>
+.error {
+	background-color: #ffaaaa;
+}
+.warning {
+	background-color: #ffffbb;
+}
+.optimize {
+	background-color: #bbffbb;
+}
+</style>
+<!-- header -->
+</head>
+<body>
+<!-- pagetop -->
+<h1>JaNeLA</h1>
+
+<ul>
+<li><a href='#overview'>Overview</li>
+<li><a href='#download'>Download</li>
+<li><a href='#version'>Version History</li>
+<li><a href='#license'>License</li>
+<li><a href='#use'>Use</li>
+</ul>
+
+<h2><a name='overview'></a>Overview</h2>
+
+<p>
+The <b>Ja</b>va <b>Ne</b>twork <b>L</b>aunch <b>A</b>nalyzer (JaNeLA) is a tool designed
+to check aspects of the
+<acronym title='Java Network Launch Protocol'>JNLP</acronym> file(s) and resources
+intended for the
+<acronym title='Java Web Start'>JWS</acronym> based launch
+of a rich-client Java application.
+</p>
+
+<p>
+In addition to checking the well-formedness and validity of the
+<acronym title='eXtensible Mark-up Language'>XML</acronym>, a variety of
+other checks are performed.  These checks include
+<ul>
+<li>The encoding and content-type.
+<li>The availability and declared size of resources.
+<li>The types of downloadable resource (e.g. GIF/JPEG for
+<code>icon</code> elements, .jar for
+<code>jar</code> and
+<code>nativelib</code> elements).
+<li>...
+</ul>
+</p>
+
+<p>For the complete list of checks currently performed, consult the
+<a href='notestable.html'>JaNeLA check table</a>.  The tests listed in
+table rows that have a 'checked' checkbox have been implemented, the unchecked
+rows are either 'ToDo', or still under review.
+</p>
+
+<h2><a name='download'></a>Download</h2>
+
+<p>The current binary can be obtained as <a href='janela.jar'>janela.jar</a>.
+</p>
+
+<h2><a name='version'></a>Version History</h2>
+
+<p>The versions of JaNeLA are listed below.
+</p>
+
+<ul>
+<li><code>10.03.07</code> by Walter Laan
+<ul>
+    <li>checkLibIsOptimized: fixed error was not added to error list.
+    <li>checkLibIsInRoot: fixed infinite loop, error not added to error list.
+    <li>checkLazyForNonMain: fixed NPE when checking nativelib tag.
+    <li>checkLinkResource: removed incorrect check for jar extension.
+    <li>XSD: changed multiplicity of jar element of the resources element from 1..* to 0..*
+    <li>Analyzing the JNLP is now done in a SwingWorker.
+    <li>General code clean up.
+</ul>
+<li><code>09.04.04</code>
+<ul>
+    <li>Corrected <code>ClassCastException</code> on opening an URL.
+    <li>Changed checked content-type from
+<code>x-java-jnlp-file</code> to
+<code>application/x-java-jnlp-file</code>.
+</ul>
+<li><code>09.02.12</code> First release of JaNeLA.
+</ul>
+
+<h2><a name='license'>License</h2>
+
+<p>LGPL</p>
+
+<h2><a name='use'>Use</h2>
+
+<p>JaNeLA has three menus and a toolbar.  The menus are File, Report and Help.</p>
+
+<h3><a name='filemenu'></a>File Menu</a></h3>
+
+<p>The File menu contains three items.</p>
+
+<ul>
+<li>Open File.  Offers a file chooser to select a main/applet JNLP file in the
+the text area of the 'Main JNLP' tab.  JaNeLA will automatically analyze the file
+for errors, warnings and optimizations and list those below.  Attempts will be made
+to load any dependant JNLP extensions, in subsequent tabs, until all resources
+needed for the launch are loaded and analyzed.
+<li>Open URL.  Does the same as above, starting with an URL.
+<li>Exit.  Exits the application.
+</ul>
+
+
+<h3><a name='reportmenu'></a>Report Menu</a></h3>
+
+<p>The Report menu has a single item - Text Report.  This report summarizes the
+list of
+errors, warnings and (possible) optimizations for the JNLP files in all open tabs.
+This should represent the main JNLP as well as any extension referenced by the main
+JNLP or an extension.</p>
+
+<h3><a name='helpmenu'></a>Help Menu</a></h3>
+
+<p>The Help menu contains three items.</p>
+
+<ul>
+<li>Help on usage.  This page!
+<li><a href='help.html'>Help on errors</a>.  Help on the messages provided in the list and report.
+<li>About.  A brief summary of application detils, title, author and version.  Please ensure
+you are using the latest version of JaNeLA before reporting bugs or
+<acronym title='Request For Enhancement'>RFE</acronym>s.
+</ul>
+
+<!-- pagebottom -->
+</body>
+</html>
+

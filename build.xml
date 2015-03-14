@@ -1,0 +1,92 @@
+<!-- Build file for the project. -->
+<project basedir="." default="run" name="janela">
+
+  <target name="properties">
+    <property name="build" value="build" />
+    <property name="dist" value="dist" />
+    <property name="src" value="src" />
+    
+    <property name="projName" value="janela" />
+    
+    <xmlproperty file="${user.home}/web.xml" />
+
+	<tstamp>
+		<format property='now' pattern='yy.MM.dd'/>
+	</tstamp>
+  </target>
+
+  <target
+    name="clean"
+    depends="properties"
+    description="Clean all build artifacts" >
+    
+  	<delete dir="${build}" />
+  </target>
+
+  <target
+    name="compile"
+    depends="properties, clean"
+    description="Compile the project" >
+    <mkdir dir='${build}/share' />
+
+    <javac
+      srcdir='${src}/java'
+      destdir='${build}/share'>
+    </javac>
+
+  </target>
+
+	
+  <target
+    name="build"
+    depends="properties, compile"
+    description="Build the project" >
+    <mkdir dir='${build}/dist/janela' />
+
+    <jar destfile='${build}/dist/janela/${projName}.jar'>
+    	<fileset dir='${build}/share'>
+    		<include name="**/*.class" />
+    	</fileset>
+    	<fileset dir='${src}/java'>
+    		<include name="**/*.xsd" />
+    	</fileset>
+    	<manifest>
+    		<attribute name='main-class' value='org.pscode.tool.janela.JaNeLA' />
+    		<section name='org/pscode/tool/janela/'>
+    			<attribute name='Implementation-Title' value='JaNeLA'/>
+    			<attribute name='Implementation-Vendor' value='Andrew Thompson'/>
+    			<attribute name='Implementation-Version' value='${now}'/>
+    		</section>
+    	</manifest>
+    </jar>
+    
+    <copy todir='${build}/dist/janela'>
+    	<fileset dir='${src}/conf'>
+	    	<include name='*.html' />
+	    	<include name='*.txt' />
+    	</fileset>
+    </copy>
+
+  </target>
+
+  <target
+    name="run"
+    depends="build"
+    description="Run the project" >
+        <java jar='${build}/dist/janela/${projName}.jar' fork='true'>
+        </java>
+  </target>
+
+
+	<target name="web-copy"
+	  depends="build"
+	  description="copies the completed project to the web source directory">
+
+		<copy todir="${web.path}${web.pathsource}">
+			<fileset dir="${build}/dist" >
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+
+	</target>
+</project>
