@@ -530,6 +530,32 @@ public class JNLPAnalyser {
         URLConnection urlc = url.openConnection();
         urlc.connect();
     }
+    
+    public void checkPack200Enabled()
+    {
+      NodeList nodeList = getPropertyNodes();
+      boolean pack200Enabled = false;
+
+      for (int ii = 0; ii < nodeList.getLength(); ii++)
+      {
+        Node node = nodeList.item(ii);
+        NamedNodeMap nodeMap = node.getAttributes();
+        Node key = nodeMap.getNamedItem("name");
+        Node value = nodeMap.getNamedItem("value");
+        if (key != null && "jnlp.packEnabled".equals(key.getTextContent()) 
+            && value != null && "true".equals(value.getTextContent()))
+          pack200Enabled = true;
+      }
+
+      if (!pack200Enabled) {
+        errors.add(
+            new LaunchError(
+                "Reduce download time by enabling pack200. See http://docs.oracle.com/javase/tutorial/deployment/deploymentInDepth/reducingDownloadTime.html",
+                (Exception)null,
+                ErrorLevel.OPTIMIZE
+                ));
+      }
+    }
 
     public void checkResourceSize(Node resourceNode) {
         NamedNodeMap attributes = resourceNode.getAttributes();
@@ -832,6 +858,26 @@ public class JNLPAnalyser {
             addException(e);
         }
     }
+    
+    private NodeList getPropertyNodes()
+    {
+      NodeList nodeList = document.getElementsByTagName("property");
+      for (int ii=0; ii<nodeList.getLength(); ii++) {
+          Node node = nodeList.item(ii);
+          System.out.println(node);
+
+          NamedNodeMap nodeMap = node.getAttributes();
+          for (int jj=0; jj<nodeMap.getLength(); jj++) {
+              System.out.println(nodeMap.item(jj));
+          }
+
+          NodeList children = node.getChildNodes();
+          for (int kk=0; kk<children.getLength(); kk++) {
+              System.out.println(children.item(kk));
+          }
+      }
+      return nodeList;
+    }
 
     private NodeList getJ2seNodes() {
         NodeList nodeList = document.getElementsByTagName("resources");
@@ -926,6 +972,8 @@ public class JNLPAnalyser {
 
             checkDesktopIcon();
             offlineAllowed();
+            
+            checkPack200Enabled();
 
             checkDescriptionLengths();
 
