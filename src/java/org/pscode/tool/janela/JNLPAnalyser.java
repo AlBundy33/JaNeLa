@@ -48,6 +48,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class JNLPAnalyser {
+    private static final boolean DEBUG = false;
     private static final String contentType = "application/x-java-jnlp-file";
 
     private final URL page;
@@ -497,7 +498,7 @@ public class JNLPAnalyser {
         String[] parts = hrefNode.getTextContent().split("\\.");
         int last = parts.length-1;
         for ( int ii=0; ii<allowable.length; ii++ ) {
-            System.out.println(parts[last] + "==" + allowable[ii]);
+            debug(parts[last] + "==" + allowable[ii]);
             if (parts[last].equalsIgnoreCase(allowable[ii])) {
                 // type found
                 return;
@@ -542,9 +543,8 @@ public class JNLPAnalyser {
         NamedNodeMap nodeMap = node.getAttributes();
         Node key = nodeMap.getNamedItem("name");
         Node value = nodeMap.getNamedItem("value");
-        if (key != null && "jnlp.packEnabled".equals(key.getTextContent()) 
-            && value != null && "true".equals(value.getTextContent()))
-          pack200Enabled = true;
+        if (key != null && "jnlp.packEnabled".equals(key.getTextContent()) && value != null)
+          pack200Enabled = "true".equals(value.getTextContent());
       }
 
       if (!pack200Enabled) {
@@ -668,8 +668,8 @@ public class JNLPAnalyser {
     }
 
     private String getDeclaredEncoding() {
-        System.out.println( "******  documentType: " + document.getDoctype() );
-        System.out.println( "******  documentElement: " + document.getDocumentElement() );
+        debug( "******  documentType: " + document.getDoctype() );
+        debug( "******  documentElement: " + document.getDocumentElement() );
         return document.getXmlEncoding();
         
 //        String jnlpContent = content.getText().toLowerCase();
@@ -745,7 +745,7 @@ public class JNLPAnalyser {
                     ErrorLevel.WARNING
                     ));
         } else {
-            System.out.println("Codebase: " + codebase );
+            debug("Codebase: " + codebase );
         }
     }
 
@@ -781,8 +781,7 @@ public class JNLPAnalyser {
         if (node==null) {
             return null;
         } else {
-            System.out.println("Codebase: " +
-                node.getNodeValue() );
+            debug("Codebase: " + node.getNodeValue());
             return node.getNodeValue();
         }
     }
@@ -798,7 +797,7 @@ public class JNLPAnalyser {
                     ErrorLevel.WARNING
                     ));
         } else {
-            System.out.println("HREF: " + href );
+            debug("HREF: " + href );
         }
     }
 
@@ -817,8 +816,7 @@ public class JNLPAnalyser {
         if (node==null) {
             return null;
         } else {
-            System.out.println("HREF: " +
-                node.getNodeValue() );
+            debug("HREF: " + node.getNodeValue());
             return node.getNodeValue();
         }
     }
@@ -827,11 +825,11 @@ public class JNLPAnalyser {
         URLConnection urlc;
         try {
             String declaredEncoding = getDeclaredEncoding();
-            System.out.println("** encoding: " + declaredEncoding);
+            debug("** encoding: " + declaredEncoding);
 
             urlc = page.openConnection();
             String encoding = urlc.getContentEncoding();
-            System.out.println("Reported encoding " + encoding);
+            debug("Reported encoding " + encoding);
             if (encoding==null) {
                 errors.add(
                     new LaunchError(
@@ -864,16 +862,16 @@ public class JNLPAnalyser {
       NodeList nodeList = document.getElementsByTagName("property");
       for (int ii=0; ii<nodeList.getLength(); ii++) {
           Node node = nodeList.item(ii);
-          System.out.println(node);
+          debug(node);
 
           NamedNodeMap nodeMap = node.getAttributes();
           for (int jj=0; jj<nodeMap.getLength(); jj++) {
-              System.out.println(nodeMap.item(jj));
+              debug(nodeMap.item(jj));
           }
 
           NodeList children = node.getChildNodes();
           for (int kk=0; kk<children.getLength(); kk++) {
-              System.out.println(children.item(kk));
+              debug(children.item(kk));
           }
       }
       return nodeList;
@@ -883,16 +881,16 @@ public class JNLPAnalyser {
         NodeList nodeList = document.getElementsByTagName("resources");
         for (int ii=0; ii<nodeList.getLength(); ii++) {
             Node node = nodeList.item(ii);
-            System.out.println(node);
+            debug(node);
 
             NamedNodeMap nodeMap = node.getAttributes();
             for (int jj=0; jj<nodeMap.getLength(); jj++) {
-                System.out.println(nodeMap.item(jj));
+                debug(nodeMap.item(jj));
             }
 
             NodeList children = node.getChildNodes();
             for (int kk=0; kk<children.getLength(); kk++) {
-                System.out.println(children.item(kk));
+                debug(children.item(kk));
             }
         }
         return nodeList;
@@ -964,6 +962,7 @@ public class JNLPAnalyser {
             
             
             validateContent();
+            System.out.println("Running post-validation.");
 
             // post validation checks
             checkContentEncoding();
@@ -982,6 +981,8 @@ public class JNLPAnalyser {
             checkJ2seNodes();
 
             //getJ2seNodes();
+            
+            System.out.println("END: Running post-validation.");
         }
         catch (IOException e) {
             addResourceFetchError(page.toExternalForm(), e, true);
@@ -1135,10 +1136,10 @@ public class JNLPAnalyser {
     }
 
     private void checkDescriptionLengths() {
-        System.out.println( getDescription("tooltip") );
-        System.out.println( getDescription("short") );
-        System.out.println( getDescription("one-line") );
-        System.out.println( getDefaultDescription() );
+        debug("tooltip: " + getDescription("tooltip"));
+        debug("short: " + getDescription("short"));
+        debug("one-line: " + getDescription("one-line"));
+        debug("default-description: " + getDefaultDescription());
 
         ArrayList<String> desc = new ArrayList<String>();
         boolean defaultDesc = getDefaultDescription() != null;
@@ -1265,4 +1266,9 @@ public class JNLPAnalyser {
         }
     }
 
+    private void debug(Object obj)
+    {
+      if (DEBUG)
+        System.out.println(obj);
+    }
 }
