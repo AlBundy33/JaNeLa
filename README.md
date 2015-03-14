@@ -1,4 +1,4 @@
-# The Java Network Launch Analyzer
+# JaNeLa - The Java Network Launch Analyzer
 
 JaNeLa was developed by Andrew Thompson and was available at http://pscode.org/janela/
 Unfortunately the site is down and source is hard to find.
