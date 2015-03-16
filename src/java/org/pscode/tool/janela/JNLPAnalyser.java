@@ -135,7 +135,7 @@ public class JNLPAnalyser {
 
             checkResourceSize(resource);
 
-            checkDefaultValueSpecified(resource);
+//            checkDefaultValueSpecified(resource);
 
             checkLazyForNonMain(resource);
 
@@ -831,6 +831,7 @@ public class JNLPAnalyser {
             String encoding = urlc.getContentEncoding();
             debug("Reported encoding " + encoding);
             if (encoding==null) {
+              if (declaredEncoding != null)
                 errors.add(
                     new LaunchError(
                         "XML encoding not known, but declared as " +
